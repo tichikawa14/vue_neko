@@ -1,3 +1,11 @@
 var app = new Vue({
-    el: '#app'
-})
+  el: "#app",
+  data: {
+    message: "Hello Vue.js!",
+    list: ["りんご", "ばなな", "いちご"],
+    handleClick: function(event) {
+      alert(event.target);
+    },
+    show: true
+  }
+});
