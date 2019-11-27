@@ -8,19 +8,80 @@
   <body>
     <div id="app">
       <!-- この#appの内側にテンプレートを書き込んでいく-->
-      <p>{{ message }}</p>
-      <input v-model="message">
+      <p>{{ message.value }}</p>
+      <p>{{ message.value.length >= 10 ? '10文字以上' : '10文字未満' }}</p>
+      <p>{{ list[2] }}</p>
+      <p>{{ list[num] }}</p> <!-- プロパティを組み合わせて使用-->
+      <input v-bind:value="message.value.length >= 10 ? '10文字以上' : '10文字未満'">
       <!-- <input v-model.number="count"> -->
       <ol>
         <li v-for="item in list">{{ item }}</li>
       </ol>
-      
+
       <button v-on:click="show=!show">切り替え</button>
       <transition>
-          <p v-if="show">Hello Vue.js!</p>
+          ow">Hello Vue.js!</p>
       </transition>
+
+      <!-- DOMのtextContentプロパティにバインド-->
+      <div v-bind:text-content.prop="message.value"></div>
+      <!-- DOMのscrollTopプロパティにバインド-->
+      <div v-bind:scroll-top.prop="scroll"></div>
+      <!-- countプロパティを表示する -->
+      <p>{{ count}}回クリックしたよ！</p>
+      <!-- このボタンをクリックするとincrementメソッドが呼び出される -->
+      <button v-on:click="increment">カウントを増やす</button>
+      
+      <!-- クラスとスタイルのデータバインディング -->
+      <!-- <p v-bind:class="{ child: isChild, 'is-active': isActive }">Text</p>
+      <p v-bind:style="{ color: textColor, backgroundColor: bgColor }">Text</p> -->
+
+      <!-- オブジェクトデータも渡せる -->
+      <p v-bind:class="classObject">Text</p>
+      <p v-bind:style="styleObject">Text</p>
+
+      <!-- テンプレートにおける条件分岐 -->
+      <div v-if="ok">v-if条件による描画</div>
+      <div v-show="ok">v-show条件による表示</div>
+
+      <!-- 繰り返し -->
+      <ul>
+        <li v-for="item in list"
+          v-bind:key="item.id"
+          v-bind:class="{ tuyoi:item.hp > 300 }">
+          ID.{{ item.id }} {{ item.name }} HP. {{ item.hp }}
+          <span v-if="item.hp > 300">つよい！</span>
+        </li>
+      </ul>
+      <ul>
+        <li v-for="item in list" v-bind:key="item.id" v-if="item.hp < 300">
+          ID.{{ item.id }} {{ item.name }} HP. {{ item.hp }}
+        </li>
+      </ul>
+      <!-- このフォームの入力値を新しいモンスターの名前に使う -->
+      名前
+      <input v-model="name">
+      <button v-on:click="doAdd">モンスターを追加</button>
+      <ul>
+        <li v-for="(item, index) in list" v-bind:key="item.id">
+          ID.{{ item.id }} {{ item.name }} HP.{{ item.hp }}
+          <!-- 削除ボタンをv-for分内に作成 -->
+          <button v-on:click="doRemove(index)">モンスターを削除</button>
+        </li>
+      </ul>
+
+      <ul>
+          <li v-for="(item, index) in list" v-bind:key="item.id">
+            ID.{{ item.id }} {{ item.name }} HP.{{ item.hp }}
+            <span v-if="item.hp < 50">瀕死！</span>
+            <!-- 削除ボタンをv-for分内に作成 -->
+            <button v-on:click="doAttack(index)">攻撃する</button>
+          </li>
+        </ul>
     </div>
+
     <script src="vue.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios@0.17.1/dist/axios.min.js"></script>
     <script src="main.js"></script>
   </body>
 </html>
