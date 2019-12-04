@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Vue.js App</title>
+    <link href="main.css" rel="stylesheet" />
+  </head>
+  <body>
+    <div id="app">
+        <button v-on:click="handleClick">クリック</button>
+
+        <div v-on:click="handler('div1')">
+            div1
+            <a href="#top" v-on:click.prevent="handler('div2')">div2</a>
+        </div>
+
+        <input v-model="message">
+        <p>{{ message }}</p>
+    </div>
+    <script src="vue.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios@0.17.1/dist/axios.min.js"></script>
+    <script src="main_chapter3.js"></script>
+  </body>
+</html>
